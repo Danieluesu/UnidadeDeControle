@@ -10,14 +10,14 @@ architecture a_ROM_ass_tb of ROM_ass_tb is
     component ROM_ass is
         port(
             endereco : in unsigned(6 downto 0);
-            dado : out signed(15 downto 0)
+            dado : out unsigned(15 downto 0)
         );
     end component;
 
     constant period_time : time := 100 ns;
     signal finished : std_logic := '0';
     signal endereco : unsigned(6 downto 0);
-    signal dado : signed(15 downto 0);
+    signal dado : unsigned(15 downto 0);
 
     begin
 
