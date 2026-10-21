@@ -45,7 +45,7 @@ architecture a_ROM_ass_tb of ROM_ass_tb is
             endereco <= "0001000"; wait for period_time;
             endereco <= "0001001"; wait for period_time;
             endereco <= "0001010"; wait for period_time;
-            endereco <= "1101111"; wait for period_time; -- caso omisso
+            endereco <= "1111111"; wait for period_time; -- caso omisso
             wait;
     end process;
 end architecture;

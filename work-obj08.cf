@@ -1,7 +1,0 @@
-v 4
-file . "ROM_ass.vhdl" "f5df0242b0f43c2e349dc93d15bfed364edb965c" "20261019143023.745":
-  entity rom_ass at 3( 22) + 0 on 23;
-  architecture a_rom_ass of rom_ass at 12( 229) + 0 on 24;
-file . "ROM_ass_tb.vhdl" "e2a30e7ec3a8717b349e00945a6d746c4d301720" "20261019143023.746":
-  entity rom_ass_tb at 1( 0) + 0 on 25;
-  architecture a_rom_ass_tb of rom_ass_tb at 8( 111) + 0 on 26;
