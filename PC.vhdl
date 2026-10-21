@@ -7,22 +7,36 @@ entity PC is
     port( clk_PC      : in std_logic;
           rst_PC      : in std_logic;
           wr_en_PC    : in std_logic;
-          address_in   : in signed(15 downto 0);
-          address_out  : out signed(15 downto 0)
+          address_in  : in signed(15 downto 0);
+          address_out : out signed(15 downto 0)
     );
 end entity;
 
 architecture a_PC of PC is
+
+    component add_um is
+        port( data_in  : in signed(15 downto 0);
+              data_out : out signed(15 downto 0)
+        );
+    end component;
+
     signal address: signed(15 downto 0);
 
 begin
+    conexao: add_um port map(
+                    data_in => address_out,
+                    data_out => address_in
+                );
+    
+
     process(clk_PC, rst_PC, wr_en_PC)  -- acionado se houver mudança em clk, rst ou wr_en
     begin
         if rst_PC = '1' then
             address <= (others => '0');  -- reset assíncro
         elsif wr_en_PC = '1' then
             if rising_edge(clk_PC) then
-                address <= address_in;
+            address <= address_in;
+                
             end if;
         end if;
     end process;

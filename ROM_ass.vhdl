@@ -28,5 +28,5 @@ architecture a_ROM_ass of ROM_ass is
       others => (others=>'0')
    );
 begin
-         dado <= conteudo_rom(to_integer(endereco));
+      dado <= conteudo_rom(to_integer(endereco));
 end architecture;
