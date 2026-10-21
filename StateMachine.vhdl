@@ -6,23 +6,61 @@ entity StateMachine is
    port( clk            : in std_logic;
          rst            : in std_logic;
          pc_wr_en_o     : out std_logic; 
-         rom_read_en_o  : out std_logic
+         rom_read_en_o  : out std_logic;
+         data_out       : out signed(15 downto 0);
+         instr          : in signed(15 downto 0);
+         jump           : out std_logic;
+         cond_or_incond : out std_logic
    );
 end entity;
 
 architecture a_StateMachine of StateMachine is
-   signal estado: std_logic := '0';
+   signal state: std_logic := '0';
+   signal opcode: unsigned(3 downto 0);
+   signal data_signal: signed(15 downto 0);
+   signal jump_signal: std_logic := '0';
+   signal cond_or_incond_signal: std_logic := '0';
+
 begin
-   process(clk,rst)  -- tirei wr_en 
+   process(clk,rst)  
    begin
       if rst='1' then
-         estado <= '0';  -- estado inicial
+         state <= '0';  -- estado inicial
       elsif rising_edge(clk) then
-        estado <= not estado;  -- alterna entre FETCH e DECODE/EXECUTE
+
+         opcode <= unsigned(instr(15 downto 12));
+
+         data_signal <= "0000000000000100" when opcode = "0000" else -- endereco absoluto: 0x004
+                        "0000000000001000" when opcode = "0001" else -- endereco absoluto: 0x008
+                        "0000000000001100" when opcode = "0010" else -- endereco absoluto: 0x00C
+                        "0000000000010000" when opcode = "0011" else -- endereco absoluto: 0x010
+                        "0000000000000010" when opcode = "0100" else -- salto cte: 0x002
+                        "0000000000000101" when opcode = "0101" else -- salto cte: 0x005
+                        (others => '0');
+         
+         cond_or_incond_signal <= '1' when opcode = "0000" or
+                                           opcode = "0001" or 
+                                           opcode = "0010" or
+                                           opcode = "0011" else 
+                                  '0';
+
+         jump_signal <= '1' when opcode = "0000" or
+                                 opcode = "0001" or 
+                                 opcode = "0010" or
+                                 opcode = "0011" else 
+                        '0';
+
+         
+
+         state <= not state;  -- alterna entre FETCH e DECODE/EXECUTE
       end if;
    end process;
 
-   rom_read_en_o <= '1' when estado = '0' else '0'; --FETCH
-   pc_wr_en_o <= '1' when estado = '1' else '0';    --DECODE/EXECUTE
+   rom_read_en_o <= '1' when state = '0' else '0'; --FETCH
+   pc_wr_en_o <= '1' when state = '1' else '0';    --DECODE/EXECUTE
 
+   data_out <= data_signal;
+   jump <= jump_signal;
+   cond_or_incond <= cond_or_incond_signal;
+      
 end architecture;
