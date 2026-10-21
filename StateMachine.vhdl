@@ -47,7 +47,10 @@ begin
          jump_signal <= '1' when opcode = "0000" or
                                  opcode = "0001" or 
                                  opcode = "0010" or
-                                 opcode = "0011" else 
+                                 opcode = "0011" or 
+                                 opcode = "0100" or
+                                 opcode = "0101"
+                              else 
                         '0';
 
          
