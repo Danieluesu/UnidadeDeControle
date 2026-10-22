@@ -49,3 +49,4 @@ architecture a_ROM_ass_tb of ROM_ass_tb is
             wait;
     end process;
 end architecture;
+
