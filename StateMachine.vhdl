@@ -53,7 +53,6 @@ begin
                               else 
                         '0';
 
-      
          state <= not state;  -- alterna entre FETCH e DECODE/EXECUTE
       end if;
    end process;
