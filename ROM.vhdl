@@ -3,14 +3,14 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-entity ROM_ass is
+entity ROM is
    port( address_ROM : in unsigned(6 downto 0);
          instruction  : out unsigned(15 downto 0);
          read_en      : in std_logic
    );
 end entity;
 
-architecture a_ROM_ass of ROM_ass is
+architecture a_ROM of ROM is
    type mem is array (0 to 127) of unsigned(15 downto 0);
    constant content_rom : mem := (
       -- caso address_ROM => conteudo
