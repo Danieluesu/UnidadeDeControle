@@ -7,8 +7,8 @@ entity StateMachine is
          rst            : in std_logic;
          pc_wr_en_o     : out std_logic; 
          rom_read_en_o  : out std_logic;
-         data_out       : out signed(7 downto 0);
-         instr          : in signed(15 downto 0);
+         data_out       : out unsigned(7 downto 0);
+         instr          : in unsigned(15 downto 0);
          jump           : out std_logic;
          cond_or_incond : out std_logic
    );
@@ -17,7 +17,7 @@ end entity;
 architecture a_StateMachine of StateMachine is
    signal state: std_logic := '0';
    signal opcode: unsigned(3 downto 0);
-   signal data_signal: signed(7 downto 0);
+   signal data_signal: unsigned(7 downto 0);
    signal jump_signal: std_logic := '0';
    signal cond_or_incond_signal: std_logic := '0';
 
@@ -53,8 +53,7 @@ begin
                               else 
                         '0';
 
-         
-
+      
          state <= not state;  -- alterna entre FETCH e DECODE/EXECUTE
       end if;
    end process;
