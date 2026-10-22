@@ -7,7 +7,7 @@ entity StateMachine is
          rst            : in std_logic;
          pc_wr_en_o     : out std_logic; 
          rom_read_en_o  : out std_logic;
-         data_out       : out unsigned(7 downto 0); -- endereco absoluto ou salto cte   
+         data_out       : out unsigned(6 downto 0); -- endereco absoluto ou salto cte   
          instr          : in unsigned(15 downto 0); -- instrução a ser decodificada
          jump           : out std_logic; -- flag para saber se tem ou nao salto
          cond_or_incond : out std_logic -- tipo de condicional
@@ -17,48 +17,49 @@ end entity;
 architecture a_StateMachine of StateMachine is
    signal state                 : std_logic := '0';
    signal opcode                : unsigned(3 downto 0);
-   signal data_signal           : unsigned(7 downto 0);
-   signal jump_signal           : std_logic := '0';
-   signal cond_or_incond_signal : std_logic := '0';
+   signal data_signal           : unsigned(6 downto 0);
+   signal jump_signal           : std_logic;
+   signal cond_or_incond_signal : std_logic;
 
 begin
-   process(clk,rst)  
+   -- 1. BLOCO SEQUENCIAL: Exclusivo para o Flip-Flop T e Reset
+   process(clk, rst)  
    begin
-      if rst='1' then
-         state <= '0';  -- estado inicial
+      if rst = '1' then
+         state <= '0';  
       elsif rising_edge(clk) then
-
-         opcode <= unsigned(instr(15 downto 12));
-
-         data_signal <= "00000000" when opcode = "0000" else -- endereco absoluto: 0x004
-                        "00000001" when opcode = "0001" else -- endereco absoluto: 0x008
-                        "00000011" when opcode = "0010" else -- endereco absoluto: 0x00C
-                        "00000100" when opcode = "0011" else -- endereco absoluto: 0x010
-                        "00000010" when opcode = "0100" else -- salto cte: 0x002
-                        "00000101" when opcode = "0101" else -- salto cte: 0x005 
-                        (others => '0');
-         
-         cond_or_incond_signal <= '1' when opcode = "0000" or
-                                           opcode = "0001" or 
-                                           opcode = "0010" or
-                                           opcode = "0011" else 
-                                  '0';
-
-         jump_signal <= '1' when opcode = "0000" or
-                                 opcode = "0001" or 
-                                 opcode = "0010" or
-                                 opcode = "0011" or 
-                                 opcode = "0100" or
-                                 opcode = "0101"
-                              else 
-                        '0';
-
          state <= not state;  -- alterna entre FETCH e DECODE/EXECUTE
       end if;
    end process;
 
-   rom_read_en_o <= '1' when state = '0' else '0'; --FETCH
-   pc_wr_en_o    <= '1' when state = '1' else '0'; --DECODE/EXECUTE
+   -- 2. LÓGICA COMBINACIONAL: Fora do processo
+   opcode <= unsigned(instr(15 downto 12));
+
+   data_signal <= "0000000" when opcode = "0000" else
+               "0000001" when opcode = "0001" else
+               "0000011" when opcode = "0010" else
+               "0000100" when opcode = "0011" else
+               "0000010" when opcode = "0100" else
+               "0000101" when opcode = "0101" else
+               (others => '0');
+   
+   cond_or_incond_signal <= '1' when opcode = "0000" or
+                                     opcode = "0001" or 
+                                     opcode = "0010" or
+                                     opcode = "0011" else 
+                            '0';
+
+   jump_signal <= '1' when opcode = "0000" or
+                           opcode = "0001" or 
+                           opcode = "0010" or
+                           opcode = "0011" or 
+                           opcode = "0100" or
+                           opcode = "0101"
+                      else 
+                  '0';
+
+   rom_read_en_o <= '1' when state = '0' else '0'; -- FETCH
+   pc_wr_en_o    <= '1' when state = '1' else '0'; -- DECODE/EXECUTE
 
    data_out       <= data_signal;
    jump           <= jump_signal;
