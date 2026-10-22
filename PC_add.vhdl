@@ -6,7 +6,6 @@ entity PC_add is
     port( clk_PC            : in std_logic;
           rst_PC            : in std_logic;
           wr_en_PC          : in std_logic;
-          address_in        : in unsigned(6 downto 0);
           address_out       : out unsigned(6 downto 0);
           jump_PC           : in std_logic;
           data_in           : in unsigned(15 downto 0);
