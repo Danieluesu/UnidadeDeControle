@@ -4,15 +4,16 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 entity ROM_ass is
-   port( endereco : in unsigned(6 downto 0);
-         dado     : out unsigned(15 downto 0) 
+   port( address_ROM : in unsigned(6 downto 0);
+         instruction  : out unsigned(15 downto 0);
+         read_en      : in std_logic
    );
 end entity;
 
 architecture a_ROM_ass of ROM_ass is
    type mem is array (0 to 127) of unsigned(15 downto 0);
-   constant conteudo_rom : mem := (
-      -- caso endereco => conteudo
+   constant content_rom : mem := (
+      -- caso address_ROM => conteudo
       0  => "0000000000100000",
       1  => "1000000000000000",
       2  => "0000000000000000",
@@ -28,5 +29,6 @@ architecture a_ROM_ass of ROM_ass is
       others => (others=>'0')
    );
 begin
-      dado <= conteudo_rom(to_integer(endereco));
+      instruction <= content_rom(to_integer(address_ROM)) when read_en = '1' else
+                     (others => '0');
 end architecture;
