@@ -4,28 +4,52 @@ use ieee.numeric_std.all;
 
 
 entity PC is
-    port( clk_reg   : in std_logic;
-          rst_reg   : in std_logic;
-          wr_en_reg : in std_logic;
-          data_in   : in signed(15 downto 0);
-          data_out  : out signed(15 downto 0)
+    port( clk_PC            : in std_logic;
+          rst_PC            : in std_logic;
+          wr_en_PC          : in std_logic;
+          address_in        : in signed(15 downto 0);
+          address_out       : out signed(15 downto 0);
+          jump_PC           : in std_logic;
+          data_in           : in signed(15 downto 0);
+          cond_or_incond_PC : in std_logic
     );
 end entity;
 
 architecture a_PC of PC is
-    signal registro: signed(15 downto 0);
+
+    component add_um is
+        port( data_in  : in signed(15 downto 0);
+              data_out : out signed(15 downto 0)
+        );
+    end component;
+
+    signal address: signed(15 downto 0);
+    signal address_tmp: signed(15 downto 0);
 
 begin
-    process(clk_reg, rst_reg, wr_en_reg)  -- acionado se houver mudança em clk, rst ou wr_en
+    conexao: add_um port map(
+                    data_in => address_out,
+                    data_out => address_in
+                );
+    
+    process(clk_PC, rst_PC, wr_en_PC)  -- acionado se houver mudança em clk, rst ou wr_en
     begin
-        if rst_reg = '1' then
-            registro <= (others => '0');  -- reset assíncro
-        elsif wr_en_reg = '1' then
-            if rising_edge(clk_reg) then
-                registro <= data_in;
+        if rst_PC = '1' then
+            address <= (others => '0');  -- reset assíncro
+        elsif wr_en_PC = '1' then
+            if rising_edge(clk_PC) then
+
+                
+                address_tmp <= address_in + data_in when jump_PC = '1' and cond_or_incond_PC = '1' else
+                               data_in when jump_PC = '1' and cond_or_incond_PC = '0' else
+                                address_in; 
+
+                address <= address_tmp;
+                
             end if;
         end if;
     end process;
     
-    data_out <= registro;  -- conexao direta, fora do processo
+    address_out <= address;  
+    
 end architecture;
