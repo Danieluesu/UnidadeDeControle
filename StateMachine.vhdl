@@ -7,19 +7,19 @@ entity StateMachine is
          rst            : in std_logic;
          pc_wr_en_o     : out std_logic; 
          rom_read_en_o  : out std_logic;
-         data_out       : out unsigned(7 downto 0);
-         instr          : in unsigned(15 downto 0);
-         jump           : out std_logic;
-         cond_or_incond : out std_logic
+         data_out       : out unsigned(7 downto 0); -- endereco absoluto ou salto cte   
+         instr          : in unsigned(15 downto 0); -- instrução a ser decodificada
+         jump           : out std_logic; -- flag para saber se tem ou nao salto
+         cond_or_incond : out std_logic -- tipo de condicional
    );
 end entity;
 
 architecture a_StateMachine of StateMachine is
-   signal state: std_logic := '0';
-   signal opcode: unsigned(3 downto 0);
-   signal data_signal: unsigned(7 downto 0);
-   signal jump_signal: std_logic := '0';
-   signal cond_or_incond_signal: std_logic := '0';
+   signal state                 : std_logic := '0';
+   signal opcode                : unsigned(3 downto 0);
+   signal data_signal           : unsigned(7 downto 0);
+   signal jump_signal           : std_logic := '0';
+   signal cond_or_incond_signal : std_logic := '0';
 
 begin
    process(clk,rst)  
@@ -58,10 +58,10 @@ begin
    end process;
 
    rom_read_en_o <= '1' when state = '0' else '0'; --FETCH
-   pc_wr_en_o <= '1' when state = '1' else '0';    --DECODE/EXECUTE
+   pc_wr_en_o    <= '1' when state = '1' else '0'; --DECODE/EXECUTE
 
-   data_out <= data_signal;
-   jump <= jump_signal;
+   data_out       <= data_signal;
+   jump           <= jump_signal;
    cond_or_incond <= cond_or_incond_signal;
       
 end architecture;

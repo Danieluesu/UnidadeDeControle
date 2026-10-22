@@ -15,14 +15,14 @@ architecture a_add_um_tb of add_um_tb is
     end component;
 
     constant period_time : time := 100 ns;
-    signal finished : std_logic := '0';
-    signal data_in  : unsigned(15 downto 0);
-    signal data_out : unsigned(15 downto 0);
+    signal finished      : std_logic := '0';
+    signal data_in       : unsigned(15 downto 0);
+    signal data_out      : unsigned(15 downto 0);
 
 begin
 
     uut: add_um port map(
-        data_in => data_in,
+        data_in  => data_in,
         data_out => data_out
     );
 

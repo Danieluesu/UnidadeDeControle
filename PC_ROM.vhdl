@@ -28,7 +28,7 @@ architecture a_PC_ROM of PC_ROM is
     end component;
 
     component ROM_ass is
-        port(   address_ROM : in unsigned(6 downto 0);
+        port(   address_ROM  : in unsigned(6 downto 0);
                 instruction  : out unsigned(15 downto 0);
                 read_en      : in std_logic
         );
@@ -50,7 +50,7 @@ begin
     rom_inst: ROM_ass port map(
         address_ROM => sai_pc,
         instruction => ROM_out,
-        read_en => read_en
+        read_en     => read_en
     );
 
 end architecture;
