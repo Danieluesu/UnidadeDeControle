@@ -6,8 +6,6 @@ entity PC_ROM is
     port(   clk                 : in std_logic;
             rst                 : in std_logic;
             wr_en_PC            : in std_logic;
-            address_in          : in unsigned(6 downto 0);
-            address_out         : out unsigned(6 downto 0);
             jump_PC             : in std_logic;
             data_in             : in unsigned(15 downto 0);
             cond_or_incond_PC   : in std_logic;
@@ -22,7 +20,6 @@ architecture a_PC_ROM of PC_ROM is
         port( clk_PC            : in std_logic;
               rst_PC            : in std_logic;
               wr_en_PC          : in std_logic;
-              address_in        : in unsigned(6 downto 0);
               address_out       : out unsigned(6 downto 0);
               jump_PC           : in std_logic;
               data_in           : in unsigned(15 downto 0);
@@ -44,7 +41,6 @@ begin
         clk_PC            => clk,
         rst_PC            => rst,
         wr_en_PC          => wr_en_PC,
-        address_in        => address_in,
         address_out       => sai_pc,
         jump_PC           => jump_PC,
         data_in           => data_in,
