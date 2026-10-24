@@ -35,19 +35,21 @@ begin
    -- 2. LÓGICA COMBINACIONAL: Fora do processo
    opcode <= unsigned(instr(15 downto 12));
 
-   data_signal <= "0000000" when opcode = "0000" else
-               "0000001" when opcode = "0001" else
-               "0000011" when opcode = "0010" else
-               "0000100" when opcode = "0011" else
-               "0000010" when opcode = "0100" else
-               "0000101" when opcode = "0101" else
-               (others => '0');
+   --data_signal <= "0000010" when opcode = "0000" else -- 0x002
+     --             "0000100" when opcode = "0001" else    -- 0x004
+      --         "0000110" when opcode = "0010" else -- 0x006
+       --        "0001000" when opcode = "0011" else -- 0x008
+        --       "0001010" when opcode = "0100" else -- 0x00A
+         --      "0000000" when opcode = "0101" else -- 0x000
+          --     (others => '0');
    
    cond_or_incond_signal <= '1' when opcode = "0000" or
                                      opcode = "0001" or 
                                      opcode = "0010" or
-                                     opcode = "0011" else 
-                            '0';
+                                     opcode = "0011" or
+                                    opcode = "0100" else
+                            '0'; --  0101 é incondicional
+                  
 
    jump_signal <= '1' when opcode = "0000" or
                            opcode = "0001" or 
@@ -57,6 +59,8 @@ begin
                            opcode = "0101"
                       else 
                   '0';
+   data_signal <= instr(6 downto 0) when jump_signal = '1' else
+                  (others => '0'); 
 
    rom_read_en_o <= '1' when state = '0' else '0'; -- FETCH
    pc_wr_en_o    <= '1' when state = '1' else '0'; -- DECODE/EXECUTE
