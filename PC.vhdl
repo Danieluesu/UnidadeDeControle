@@ -22,9 +22,9 @@ architecture a_PC of PC is
 begin
 
     address_tmp <= address_in + data_in
-        when jump_PC = '1' and cond_or_incond_PC = '1' else
+        when wr_en_PC = '1' and jump_PC = '1' and cond_or_incond_PC = '1' else
         data_in
-        when jump_PC = '1' and cond_or_incond_PC = '0' else
+        when wr_en_PC = '1' and jump_PC = '1' and cond_or_incond_PC = '0' else
         address_in;
 
     process(clk_PC, rst_PC)
