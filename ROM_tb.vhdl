@@ -34,17 +34,17 @@ architecture a_ROM_tb of ROM_tb is
 
     process
          begin
-            endereco <= "0000000"; wait for period_time;
-            endereco <= "0000001"; wait for period_time;
-            endereco <= "0000010"; wait for period_time;
-            endereco <= "0000011"; wait for period_time;
-            endereco <= "0000100"; wait for period_time;
-            endereco <= "0000101"; wait for period_time;
+            endereco <= "0000000"; wait for period_time;  --0
+            endereco <= "0000001"; wait for period_time;  --1
+            endereco <= "0000010"; wait for period_time;  --2
+            endereco <= "0000011"; wait for period_time;  --3
+            endereco <= "0000100"; wait for period_time;  --4
+            endereco <= "0000101"; wait for period_time;  --5
             endereco <= "0000110"; wait for period_time;
             endereco <= "0000111"; wait for period_time;
             endereco <= "0001000"; wait for period_time;
             endereco <= "0001001"; wait for period_time;
-            endereco <= "0001010"; wait for period_time;
+            endereco <= "0001010"; wait for period_time;  --10
             endereco <= "1111111"; wait for period_time; -- caso omisso
             wait;
     end process;
