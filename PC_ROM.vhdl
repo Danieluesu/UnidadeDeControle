@@ -3,14 +3,14 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity PC_ROM is
-    port(   clk                 : in std_logic;
-            rst                 : in std_logic;
-            wr_en_PC            : in std_logic;
-            jump_PC             : in std_logic;
-            data_in             : in unsigned(6 downto 0);
-            cond_or_incond_PC   : in std_logic;
-            ROM_out             : out unsigned(15 downto 0);
-            read_en             : in std_logic
+    port(   clk               : in std_logic;
+            rst               : in std_logic;
+            wr_en_PC          : in std_logic;
+            jump_PC           : in std_logic;
+            data_in           : in unsigned(6 downto 0);
+            cond_or_incond_PC : in std_logic;
+            ROM_out           : out unsigned(15 downto 0);
+            read_en           : in std_logic
     );
 end entity;
 
