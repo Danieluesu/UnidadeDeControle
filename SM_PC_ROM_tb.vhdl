@@ -10,7 +10,8 @@ architecture a_SM_PC_ROM_tb of SM_PC_ROM_tb is
     -- 1. Declaração do componente principal que será testado (UUT)
     component SM_PC_ROM is
         port( clk_geral : in std_logic;
-              rst_geral : in std_logic
+              rst_geral : in std_logic;
+              address_out : out unsigned(6 downto 0)
         );
     end component;
 
@@ -21,13 +22,15 @@ architecture a_SM_PC_ROM_tb of SM_PC_ROM_tb is
     -- 3. Sinais internos para conectar aos pinos do componente
     signal clk_s : std_logic := '0';
     signal rst_s : std_logic := '0';
+    signal address_out_tb : unsigned(6 downto 0);
 
 begin
 
     -- 4. Instanciação da Unit Under Test (UUT)[cite: 6]
     uut: SM_PC_ROM port map(
         clk_geral => clk_s,
-        rst_geral => rst_s
+        rst_geral => rst_s,
+        address_out => address_out_tb
     );
 
     -- 5. Processo de geração do Reset Global (Pulso inicial)[cite: 6]

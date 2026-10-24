@@ -24,7 +24,7 @@ architecture a_ROM of ROM is
       7  => "0000000000100000", -- NOP
       8  => "0001100000001010",
       9  => "0000000000010011", -- NOP
-      10 => "00010000000000000",
+      10 => "0001000000000000",
       -- abaixo: casos omissos => (zero em todos os bits)
       others => (others=>'0')
    );

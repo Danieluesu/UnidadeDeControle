@@ -3,8 +3,9 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity SM_PC_ROM is
-   port( clk_geral : in std_logic;
-         rst_geral : in std_logic
+   port( clk_geral      : in std_logic;
+         rst_geral      : in std_logic;
+         address_out    : out unsigned(6 downto 0)
        );
 end entity;
 
@@ -18,7 +19,8 @@ architecture a_SM_PC_ROM of SM_PC_ROM is
         data_in           : in unsigned(6 downto 0);
         cond_or_incond_PC : in std_logic;
         ROM_out           : out unsigned(15 downto 0);
-        read_en           : in std_logic
+        read_en           : in std_logic;
+        addr_out          : out unsigned(6 downto 0)
     );
 end component;
 
@@ -40,6 +42,7 @@ end component;
     signal instr_signal          : unsigned(15 downto 0);
     signal jump_signal           : std_logic;
     signal cond_or_incond_signal : std_logic;
+    signal addr_from_rom         : unsigned(6 downto 0);
 
 begin
     
@@ -62,7 +65,10 @@ begin
     data_in           => data_signal,
     cond_or_incond_PC => cond_or_incond_signal,
     ROM_out           => instr_signal,
-    read_en           => rom_read_en_signal
+    read_en           => rom_read_en_signal,
+    addr_out          => addr_from_rom
 );
+
+address_out <= addr_from_rom;
 
 end architecture;

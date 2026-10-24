@@ -10,7 +10,8 @@ entity PC_ROM is
             data_in           : in unsigned(6 downto 0);
             cond_or_incond_PC : in std_logic;
             ROM_out           : out unsigned(15 downto 0);
-            read_en           : in std_logic
+            read_en           : in std_logic;
+            addr_out          : out unsigned(6 downto 0)
     );
 end entity;
 
@@ -53,5 +54,7 @@ begin
         instruction => ROM_out,
         read_en     => read_en
     );
+
+    addr_out <= sai_pc;
 
 end architecture;
