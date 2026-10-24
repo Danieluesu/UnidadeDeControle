@@ -8,8 +8,8 @@ end entity;
 architecture a_add_um_tb of add_um_tb is
     component add_um is
         port(
-            data_in	: in unsigned(15 downto 0);
-			data_out: out unsigned(15 downto 0)
+            data_in	 : in unsigned(15 downto 0);
+			data_out : out unsigned(15 downto 0)
         );
     end component;
 
