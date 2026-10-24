@@ -61,8 +61,8 @@ begin
                            '0' when jump_signal = '1' and cond_instr_signal = "0" else
                            '0'; -- default
 
-   rom_read_en_o <= '1' when state = '0' else '0'; -- FETCH
-   pc_wr_en_o    <= '1' when state = '1' else '0'; -- DECODE/EXECUTE
+   rom_read_en_o <= '1' when state = '0' and rst = '0' else '0'; -- FETCH
+   pc_wr_en_o    <= '1' when state = '1' and rst = '0' else '0'; -- DECODE/EXECUTE
 
    data_out       <= data_signal;
    jump           <= jump_signal;
