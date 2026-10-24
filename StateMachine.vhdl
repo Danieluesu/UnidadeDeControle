@@ -34,8 +34,8 @@ begin
    end process;
 
    -- 2. LÓGICA COMBINACIONAL: Fora do processo
-   opcode <= unsigned(instr(15 downto 12)) when state = '0' else (others => '0');
-   cond_instr_signal <= unsigned(instr(11 downto 11)) when state = '0' else (others => '0'); -- bit 11 indica se é condicional ou incondicional
+   opcode <= unsigned(instr(15 downto 12)) when state = '0' and rst = '0' else (others => '0');
+   cond_instr_signal <= unsigned(instr(11 downto 11)) when state = '0'and rst = '0' else (others => '0'); -- bit 11 indica se é condicional ou incondicional
 
    --data_signal <= "0000010" when opcode = "0000" else -- 0x002
      --             "0000100" when opcode = "0001" else    -- 0x004
