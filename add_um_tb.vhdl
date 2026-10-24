@@ -6,7 +6,6 @@ entity add_um_tb is
 end entity;
 
 architecture a_add_um_tb of add_um_tb is
-
     component add_um is
         port(
             data_in	: in unsigned(15 downto 0);
@@ -20,7 +19,6 @@ architecture a_add_um_tb of add_um_tb is
     signal data_out      : unsigned(15 downto 0);
 
 begin
-
     uut: add_um port map(
         data_in  => data_in,
         data_out => data_out
@@ -43,4 +41,5 @@ begin
         data_in <= "1111111111111111"; wait for period_time; -- caso omisso
         wait;
     end process;
+    
 end architecture;
