@@ -17,27 +17,22 @@ entity PC is
 end entity;
 
 architecture a_PC of PC is
-    signal address     : unsigned(6 downto 0);
     signal address_tmp : unsigned(6 downto 0);
 begin
 
-    address_tmp <= address_in + data_in
-        when wr_en_PC = '1' and jump_PC = '1' and cond_or_incond_PC = '1' else
-        data_in
-        when wr_en_PC = '1' and jump_PC = '1' and cond_or_incond_PC = '0' else
-        address_in;
+    
 
     process(clk_PC, rst_PC)
     begin
         if rst_PC = '1' then
-            address <= (others => '0');
+            address_tmp <= (others => '0');
         elsif rising_edge(clk_PC) then
             if wr_en_PC = '1' then
-                address <= address_tmp;
+                address_tmp <= address_in;
             end if;
         end if;
     end process;
 
-    address_out <= address;
+    address_out <= address_tmp;
 
 end architecture;
