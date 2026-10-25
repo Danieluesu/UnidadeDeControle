@@ -10,7 +10,7 @@ entity StateMachine is
          data_out       : out unsigned(6 downto 0); -- endereco absoluto ou salto cte   
          instr          : in unsigned(15 downto 0); -- instrução a ser decodificada
          jump           : out std_logic; -- flag para saber se tem ou nao salto
-         prev_instruction : out unsigned(15 downto 0); -- instrução anterior
+         prev_instruction : in unsigned(15 downto 0); -- instrução anterior
          cond_or_incond : out std_logic -- tipo de condicional
    );
 end entity;

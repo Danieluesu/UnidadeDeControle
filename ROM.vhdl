@@ -30,8 +30,19 @@ architecture a_ROM of ROM is
       others => (others=>'0')
    );
 begin
-      instruction <= content_rom(to_integer(address_ROM)) when read_en = '1' else
-                     (others => '0');
-      prev_instruction <= content_rom(to_integer(address_ROM)-1) when read_en = '1' else
-                     (others => '0');
+      process(address_ROM, read_en)
+         variable address_index : integer range 0 to 127;
+      begin
+         instruction <= (others => '0');
+         prev_instruction <= (others => '0');
+
+         if read_en = '1' and not Is_X(std_logic_vector(address_ROM)) then
+            address_index := to_integer(address_ROM);
+            instruction <= content_rom(address_index);
+
+            if address_index > 0 then
+               prev_instruction <= content_rom(address_index - 1);
+            end if;
+         end if;
+      end process;
 end architecture;

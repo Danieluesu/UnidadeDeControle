@@ -10,6 +10,7 @@ entity PC_ROM is
             data_in           : in unsigned(6 downto 0);
             cond_or_incond_PC : in std_logic;
             ROM_out           : out unsigned(15 downto 0);
+            prev_instruction  : out unsigned(15 downto 0);
             read_en           : in std_logic;
             addr_out          : out unsigned(6 downto 0)
     );
@@ -32,6 +33,7 @@ architecture a_PC_ROM of PC_ROM is
     port(
         address_ROM : in unsigned(6 downto 0);
         instruction : out unsigned(15 downto 0);
+        prev_instruction : out unsigned(15 downto 0);
         read_en     : in std_logic
     );
     end component;
@@ -52,6 +54,7 @@ begin
     rom_inst: ROM port map(
         address_ROM => sai_pc,
         instruction => ROM_out,
+        prev_instruction => prev_instruction,
         read_en     => read_en
     );
 

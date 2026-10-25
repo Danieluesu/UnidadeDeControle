@@ -19,6 +19,7 @@ architecture a_SM_PC_ROM of SM_PC_ROM is
         data_in           : in unsigned(6 downto 0);
         cond_or_incond_PC : in std_logic;
         ROM_out           : out unsigned(15 downto 0);
+        prev_instruction  : out unsigned(15 downto 0);
         read_en           : in std_logic;
         addr_out          : out unsigned(6 downto 0)
     );
@@ -31,6 +32,7 @@ end component;
               rom_read_en_o  : out std_logic;
               data_out       : out unsigned(6 downto 0);
               instr          : in unsigned(15 downto 0);
+              prev_instruction : in unsigned(15 downto 0);
               jump           : out std_logic;
               cond_or_incond : out std_logic
         );
@@ -40,6 +42,7 @@ end component;
     signal rom_read_en_signal    : std_logic;
     signal data_signal           : unsigned(6 downto 0);
     signal instr_signal          : unsigned(15 downto 0);
+    signal prev_instruction_signal : unsigned(15 downto 0);
     signal jump_signal           : std_logic;
     signal cond_or_incond_signal : std_logic;
     signal addr_from_rom         : unsigned(6 downto 0);
@@ -53,6 +56,7 @@ begin
         rom_read_en_o  => rom_read_en_signal,
         data_out       => data_signal,
         instr          => instr_signal,
+        prev_instruction => prev_instruction_signal,
         jump           => jump_signal,
         cond_or_incond => cond_or_incond_signal
     );
@@ -65,6 +69,7 @@ begin
     data_in           => data_signal,
     cond_or_incond_PC => cond_or_incond_signal,
     ROM_out           => instr_signal,
+    prev_instruction  => prev_instruction_signal,
     read_en           => rom_read_en_signal,
     addr_out          => addr_from_rom
 );
