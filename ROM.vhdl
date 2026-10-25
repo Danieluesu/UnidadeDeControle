@@ -32,6 +32,5 @@ architecture a_ROM of ROM is
 begin
       instruction <= content_rom(to_integer(address_ROM)) when read_en = '1' else
                      (others => '0');
-      prev_instruction <= content_rom(to_integer(address_ROM)-1) when read_en = '1' else
-                     (others => '0');
+
 end architecture;
