@@ -10,17 +10,13 @@ entity PC is
         wr_en_PC          : in std_logic;
         address_in        : in unsigned(6 downto 0);
         address_out       : out unsigned(6 downto 0);
-        jump_PC           : in std_logic;
-        data_in           : in unsigned(6 downto 0);
-        cond_or_incond_PC : in std_logic
+        data_in           : in unsigned(6 downto 0)
     );
 end entity;
 
 architecture a_PC of PC is
     signal address_tmp : unsigned(6 downto 0);
 begin
-
-    
 
     process(clk_PC, rst_PC)
     begin
