@@ -6,9 +6,7 @@ entity PC_add is
     port( clk_PC            : in std_logic;
           rst_PC            : in std_logic;
           wr_en_PC          : in std_logic;
-          address_out       : out unsigned(6 downto 0);
-         
-          data_in           : in unsigned(6 downto 0)
+          address_out       : out unsigned(6 downto 0)
         
     );
 end entity;
@@ -20,9 +18,9 @@ architecture a_PC_add of PC_add is
                 rst_PC            : in std_logic;
                 wr_en_PC          : in std_logic;
                 address_in        : in unsigned(6 downto 0);
-                address_out       : out unsigned(6 downto 0);
+                address_out       : out unsigned(6 downto 0)
               
-                data_in           : in unsigned(6 downto 0)
+                
                 
     );
     end component;
@@ -45,9 +43,7 @@ begin
         rst_PC            => rst_PC,
         wr_en_PC          => wr_en_PC,
         address_in        => sai_add_um,
-        address_out       => sai_pc,
-        
-        data_in           => data_in
+        address_out       => sai_pc
     );
 
     add_um_inst: add_um port map(

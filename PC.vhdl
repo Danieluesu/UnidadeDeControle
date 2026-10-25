@@ -9,8 +9,7 @@ entity PC is
         rst_PC            : in std_logic;
         wr_en_PC          : in std_logic;
         address_in        : in unsigned(6 downto 0);
-        address_out       : out unsigned(6 downto 0);
-        data_in           : in unsigned(6 downto 0)
+        address_out       : out unsigned(6 downto 0)
     );
 end entity;
 
