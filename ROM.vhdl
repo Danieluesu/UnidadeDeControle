@@ -6,6 +6,7 @@ use ieee.numeric_std.all;
 entity ROM is
    port( address_ROM  : in unsigned(6 downto 0);
          instruction  : out unsigned(15 downto 0);
+         prev_instruction  : out unsigned(15 downto 0);
          read_en      : in std_logic
    );
 end entity;
@@ -30,5 +31,7 @@ architecture a_ROM of ROM is
    );
 begin
       instruction <= content_rom(to_integer(address_ROM)) when read_en = '1' else
+                     (others => '0');
+      prev_instruction <= content_rom(to_integer(address_ROM)-1) when read_en = '1' else
                      (others => '0');
 end architecture;
