@@ -10,6 +10,7 @@ entity StateMachine is
          data_out       : out unsigned(6 downto 0); -- endereco absoluto ou salto cte   
          instr          : in unsigned(15 downto 0); -- instrução a ser decodificada
          jump           : out std_logic; -- flag para saber se tem ou nao salto
+         prev_instruction : out unsigned(15 downto 0); -- instrução anterior
          cond_or_incond : out std_logic -- tipo de condicional
    );
 end entity;
@@ -34,8 +35,10 @@ begin
    end process;
 
    -- 2. LÓGICA COMBINACIONAL: Fora do processo
-   opcode <= unsigned(instr(15 downto 12)) when state = '0' and rst = '0' else (others => '0');
-   cond_instr_signal <= unsigned(instr(11 downto 11)) when state = '0'and rst = '0' else (others => '0'); -- bit 11 indica se é condicional ou incondicional
+   opcode <= unsigned(instr(15 downto 12)) when state = '0' and rst = '0' else 
+    unsigned(prev_instruction(15 downto 12)); -- opcode da instrucao atual ou anterior
+   cond_instr_signal <= unsigned(instr(11 downto 11)) when state = '0'and rst = '0' else 
+      unsigned(prev_instruction(11 downto 11 )); -- bit 11 indica se é condicional ou incondicional
 
    --data_signal <= "0000010" when opcode = "0000" else -- 0x002
      --             "0000100" when opcode = "0001" else    -- 0x004
