@@ -50,9 +50,9 @@ begin
   --                                opcode = "0001" else
   --                     '0'; --  0101 é incondicional
   jump_signal <= '1' when
-    state = '1' and opcode = "0001"
+    state = '0' and opcode = "0001"
     else
-    '0';
+    '1';
 
   data_signal <= instr(6 downto 0) when jump_signal = '1' else
     (others => '0');
