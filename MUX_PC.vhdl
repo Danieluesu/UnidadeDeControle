@@ -16,7 +16,7 @@ architecture a_MUX_PC of MUX_PC is
 begin
 
     address_out <= adress_in_jump + data_in when (jump = '1' and cond_or_incond = '1') else
-                   adress_in_jump when (jump = '1' and cond_or_incond = '0') else
+                  data_in when (jump = '1' and cond_or_incond = '0') else
                    adress_in_add_um;
 
 end architecture;
