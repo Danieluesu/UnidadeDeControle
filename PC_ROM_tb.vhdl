@@ -9,42 +9,41 @@ architecture a_PC_ROM_tb of PC_ROM_tb is
 
     component PC_ROM is
     port(
-        clk               : in std_logic;
-        rst               : in std_logic;
-        wr_en_PC          : in std_logic;
-        jump_PC           : in std_logic;
-        data_in           : in unsigned(15 downto 0);
-        cond_or_incond_PC : in std_logic;
-        ROM_out           : out unsigned(15 downto 0);
-        read_en           : in std_logic
+           clk_PC_ROM     : in std_logic;
+           rst_PC_ROM     : in std_logic;
+           wr_en_PC_ROM   : in std_logic;
+           read_en_PC_ROM : in std_logic;
+           inst_ROM       : out unsigned(15 downto 0);
+           addr_in_PC     : in unsigned(6 downto 0);  -- PC in
+           addr_out_PC    : out unsigned(6 downto 0); -- PC out
+           addr_add_PC    : out unsigned(6 downto 0)  -- PC + 1
     );
 end component;
 
     constant period_time : time := 100 ns;
     signal finished      : std_logic := '0';
 
-    signal clk_s               : std_logic := '0';
-    signal rst_s               : std_logic := '0';
-    signal wr_en_PC_s          : std_logic := '1'; 
-    signal address_in_s        : unsigned(6 downto 0) := (others => '0');
-    signal address_out_s       : unsigned(6 downto 0);
-    signal jump_PC_s           : std_logic := '0';
-    signal data_in_s           : unsigned(15 downto 0) := (others => '0');
-    signal cond_or_incond_PC_s : std_logic := '0';
-    signal ROM_out_s           : unsigned(15 downto 0);
+    signal clk_s         : std_logic := '0';
+    signal rst_s         : std_logic := '0';
+    signal wr_en_PC_s    : std_logic := '1'; 
+    signal address_in_s  : unsigned(6 downto 0) := (others => '0');
+    signal address_out_s : unsigned(6 downto 0);
+    signal inst_ROM_s    : unsigned(15 downto 0) := (others => '0');
+    signal addr_add_PC_s : unsigned(6 downto 0);
 
 begin
 
     uut: PC_ROM port map(
-        clk                 => clk_s,
-        rst                 => rst_s,
-        wr_en_PC            => wr_en_PC_s,
-        jump_PC             => jump_PC_s,
-        data_in             => data_in_s,
-        cond_or_incond_PC   => cond_or_incond_PC_s,
-        ROM_out             => ROM_out_s,
-        read_en             => '1' 
+        clk_PC_ROM     => clk_s,
+        rst_PC_ROM     => rst_s,
+        wr_en_PC_ROM   => wr_en_PC_s,
+        read_en_PC_ROM => '1',
+        inst_ROM       => inst_ROM_s,
+        addr_in_PC     => address_in_s,
+        addr_out_PC    => address_out_s,
+        addr_add_PC    => (others => '0')
     );
+       
 
     reset_global: process
     begin

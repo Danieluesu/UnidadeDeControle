@@ -6,7 +6,6 @@ use ieee.numeric_std.all;
 entity ROM is
    port( address_ROM  : in unsigned(6 downto 0);
          instruction  : out unsigned(15 downto 0);
-         --prev_instruction  : out unsigned(15 downto 0);
          read_en      : in std_logic
    );
 end entity;

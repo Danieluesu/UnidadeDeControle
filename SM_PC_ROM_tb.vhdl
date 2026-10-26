@@ -7,7 +7,6 @@ end entity;
 
 architecture a_SM_PC_ROM_tb of SM_PC_ROM_tb is
 
-    -- 1. Declaração do componente principal que será testado (UUT)
     component SM_PC_ROM is
         port( clk_geral : in std_logic;
               rst_geral : in std_logic;
@@ -15,25 +14,22 @@ architecture a_SM_PC_ROM_tb of SM_PC_ROM_tb is
         );
     end component;
 
-    -- 2. Sinais de controle da simulação
     constant period_time : time := 100 ns;
     signal finished      : std_logic := '0';
 
-    -- 3. Sinais internos para conectar aos pinos do componente
     signal clk_s : std_logic := '0';
     signal rst_s : std_logic := '0';
     signal address_out_tb : unsigned(6 downto 0);
 
 begin
 
-    -- 4. Instanciação da Unit Under Test (UUT)[cite: 6]
     uut: SM_PC_ROM port map(
         clk_geral => clk_s,
         rst_geral => rst_s,
         address_out => address_out_tb
     );
 
-    -- 5. Processo de geração do Reset Global (Pulso inicial)[cite: 6]
+   
     reset_global: process
     begin
         rst_s <= '1';
@@ -42,7 +38,7 @@ begin
         wait;
     end process;
 
-    -- 6. Processo de controle do tempo total de simulação[cite: 6]
+  
     sim_time_proc: process
     begin
         wait for 8000 ns; -- <== TEMPO TOTAL DA SIMULAÇÃO
@@ -50,7 +46,7 @@ begin
         wait;
     end process sim_time_proc;
 
-    -- 7. Processo de geração do Clock contínuo[cite: 6]
+    
     clk_proc: process
     begin
         while finished /= '1' loop

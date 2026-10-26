@@ -4,12 +4,11 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity PC is
-    port(
-        clk_PC            : in std_logic;
-        rst_PC            : in std_logic;
-        wr_en_PC          : in std_logic;
-        address_in        : in unsigned(6 downto 0);
-        address_out       : out unsigned(6 downto 0)
+    port(  clk_PC      : in std_logic;
+           rst_PC      : in std_logic;
+           wr_en_PC    : in std_logic;
+           address_in  : in unsigned(6 downto 0);
+           address_out : out unsigned(6 downto 0)
     );
 end entity;
 

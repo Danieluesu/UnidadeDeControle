@@ -10,7 +10,9 @@ entity add_um is
 end entity;
 
 architecture a_add_um of add_um is
+
 begin
+	
     data_out <= data_in + 1;
 
 end architecture;
