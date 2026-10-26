@@ -91,7 +91,7 @@ begin
     addr_out          => conection_inMUX_outPC,
     addr_add          => conection_addUM_inMUX
 );
-
+address_out <= conection_inMUX_outPC;
 
 
 end architecture;
