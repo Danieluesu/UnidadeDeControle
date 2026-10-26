@@ -58,7 +58,8 @@ begin
     (others => '0');
 
   cond_or_incond_signal <= '1' when jump_signal = '1' and cond_instr_signal = "1" else
-    '0' when jump_signal = '1' and cond_instr_signal = "0";
+    '0' when jump_signal = '1' and cond_instr_signal = "0" else
+    '0'; -- default value when jump_signal is '0'
 
   rom_read_en_o <= '1' when state = '0' and rst = '0' else
     '0'; -- FETCH
