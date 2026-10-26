@@ -52,7 +52,7 @@ begin
   jump_signal <= '1' when
     state = '0' and opcode = "0001"
     else
-    '1';
+    '0';
 
   data_signal <= instr(6 downto 0) when jump_signal = '1' else
     (others => '0');
