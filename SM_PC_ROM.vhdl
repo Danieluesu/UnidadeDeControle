@@ -15,14 +15,24 @@ architecture a_SM_PC_ROM of SM_PC_ROM is
         clk               : in std_logic;
         rst               : in std_logic;
         wr_en_PC          : in std_logic;
-        jump_PC           : in std_logic;
-        data_in           : in unsigned(6 downto 0);
-        cond_or_incond_PC : in std_logic;
+       
+
+       
         ROM_out           : out unsigned(15 downto 0);
         read_en           : in std_logic;
         addr_out          : out unsigned(6 downto 0)
     );
 end component;
+
+    component MUX_PC is
+        port(  adress_in_jump     : in unsigned(6 downto 0);
+                adress_in_add_um : in unsigned(6 downto 0);  
+                address_out    : out unsigned(6 downto 0);
+                jump          : in std_logic;
+                cond_or_incond : in std_logic;
+                data_in       : in unsigned(6 downto 0)
+             );
+    end component;
 
     component StateMachine is
         port( clk            : in std_logic;
@@ -57,13 +67,21 @@ begin
         cond_or_incond => cond_or_incond_signal
     );
 
+    mux_pc_inst: MUX_PC port map(
+       -- adress_in_jump     => 
+        -- adress_in_add_um   => 
+        -- address_out        =>
+        jump               => jump_signal,
+        cond_or_incond     => cond_or_incond_signal,
+        data_in            => data_signal
+    );
+
     pc_rom_inst: PC_ROM port map(
     clk               => clk_geral,
     rst               => rst_geral,
     wr_en_PC          => pc_wr_en_signal,
-    jump_PC           => jump_signal,
-    data_in           => data_signal,
-    cond_or_incond_PC => cond_or_incond_signal,
+   
+    
     ROM_out           => instr_signal,
     read_en           => rom_read_en_signal,
     addr_out          => addr_from_rom
