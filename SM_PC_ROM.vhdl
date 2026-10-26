@@ -12,15 +12,14 @@ end entity;
 architecture a_SM_PC_ROM of SM_PC_ROM is
    component PC_ROM is
     port(
-        clk               : in std_logic;
-        rst               : in std_logic;
-        wr_en_PC          : in std_logic;
-       
-
-       
-        ROM_out           : out unsigned(15 downto 0);
-        read_en           : in std_logic;
-        addr_out          : out unsigned(6 downto 0)
+         clk               : in std_logic;
+            rst               : in std_logic;
+            wr_en_PC          : in std_logic;
+            ROM_out           : out unsigned(15 downto 0);
+            read_en           : in std_logic;
+            addr_out          : out unsigned(6 downto 0);
+            addr_in           : in unsigned(6 downto 0);
+            addr_add          : out unsigned(6 downto 0)
     );
 end component;
 
@@ -52,7 +51,11 @@ end component;
     signal instr_signal          : unsigned(15 downto 0);
     signal jump_signal           : std_logic;
     signal cond_or_incond_signal : std_logic;
-    signal addr_from_rom         : unsigned(6 downto 0);
+    signal conection_outMUX_inPC : unsigned(6 downto 0);
+    signal conection_inMUX_outPC : unsigned(6 downto 0);
+    signal conection_addUM_inMUX   : unsigned(6 downto 0);
+    --signal addr_from_rom         : unsigned(6 downto 0);
+   -- signal conection_add_out_pc : unsigned(6 downto 0);
 
 begin
     
@@ -68,9 +71,9 @@ begin
     );
 
     mux_pc_inst: MUX_PC port map(
-       -- adress_in_jump     => 
-        -- adress_in_add_um   => 
-        -- address_out        =>
+        adress_in_jump     => conection_inMUX_outPC,
+        adress_in_add_um   => conection_addUM_inMUX,
+        address_out        => conection_outMUX_inPC,
         jump               => jump_signal,
         cond_or_incond     => cond_or_incond_signal,
         data_in            => data_signal
@@ -80,13 +83,15 @@ begin
     clk               => clk_geral,
     rst               => rst_geral,
     wr_en_PC          => pc_wr_en_signal,
-   
-    
+    addr_in           => conection_outMUX_inPC,
+    --addr_add          => conection_add_out_pc,
+
     ROM_out           => instr_signal,
     read_en           => rom_read_en_signal,
-    addr_out          => addr_from_rom
+    addr_out          => conection_inMUX_outPC,
+    addr_add          => conection_addUM_inMUX
 );
 
-address_out <= addr_from_rom;
+
 
 end architecture;
