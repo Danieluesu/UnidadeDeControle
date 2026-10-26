@@ -51,7 +51,7 @@ architecture a_SM_PC_ROM of SM_PC_ROM is
       );
    end component;
 
-   component IR is
+   component instruction_register is
       port(
          clk       : in  std_logic;
          rst       : in  std_logic;
@@ -93,7 +93,7 @@ begin
       );
 
    -- Registrador de instrução
-   ir_inst: IR
+   ir_inst: instruction_register
       port map(
          clk       => clk_geral,
          rst       => rst_geral,
