@@ -43,7 +43,7 @@ architecture a_SM_PC_ROM of SM_PC_ROM is
          rst            : in  std_logic;
          pc_wr_en_o     : out std_logic;
          rom_read_en_o  : out std_logic;
-         ir_wr_en_o     : out std_logic;
+         --ir_wr_en_o     : out std_logic;
          data_out       : out unsigned(6 downto 0);
          instr          : in  unsigned(15 downto 0);
          jump           : out std_logic;
