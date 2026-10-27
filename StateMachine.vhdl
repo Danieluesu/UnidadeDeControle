@@ -11,8 +11,8 @@ entity StateMachine is
     data_out       : out unsigned(6 downto 0); -- endereco absoluto ou salto cte   
     instr          : in unsigned(15 downto 0); -- instrução a ser decodificada
     jump           : out std_logic; -- flag para saber se tem ou nao salto
-    cond_or_incond : out std_logic; -- tipo de condicional
-    ir_wr_en_o : out std_logic
+    cond_or_incond : out std_logic -- tipo de condicional
+    --ir_wr_en_o : out std_logic
   );
 end entity;
 
@@ -62,12 +62,12 @@ begin
     '0' when jump_signal = '1' and cond_instr_signal = "0" else
     '0'; -- default value when jump_signal is '0'
 
-  rom_read_en_o <= '1' when state = '0' and rst = '0' else
+  rom_read_en_o <= '1' when rst = '0' else
     '0'; -- FETCH
   pc_wr_en_o <= '1' when state = '1' and rst = '0' else
     '0'; -- DECODE/EXECUTE
-  ir_wr_en_o <= '1' when state = '0' and rst = '0' else
-              '0'; -- FETCH
+  --ir_wr_en_o <= '1' when state = '0' and rst = '0' else
+    --          '0'; -- FETCH
 
   data_out       <= data_signal;
   jump           <= jump_signal;
