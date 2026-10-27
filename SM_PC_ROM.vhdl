@@ -51,23 +51,23 @@ architecture a_SM_PC_ROM of SM_PC_ROM is
       );
    end component;
 
-   component instruction_register is
-      port(
-         clk       : in  std_logic;
-         rst       : in  std_logic;
-         wr_en_IR  : in  std_logic;
-         instr_in  : in  unsigned(15 downto 0);
-         instr_out : out unsigned(15 downto 0)
-      );
-   end component;
+   --component instruction_register is
+     -- port(
+       --  clk       : in  std_logic;
+        -- rst       : in  std_logic;
+         --wr_en_IR  : in  std_logic;
+         --instr_in  : in  unsigned(15 downto 0);
+         --instr_out : out unsigned(15 downto 0)
+      --);
+   --end component;
 
    signal pc_wr_en_signal       : std_logic;
    signal rom_read_en_signal    : std_logic;
-   signal ir_wr_en_signal       : std_logic;
+   --signal ir_wr_en_signal       : std_logic;
 
    signal data_signal           : unsigned(6 downto 0);
    signal instr_rom             : unsigned(15 downto 0);
-   signal instr_ir              : unsigned(15 downto 0);
+   --signal instr_ir              : unsigned(15 downto 0);
 
    signal jump_signal           : std_logic;
    signal cond_or_incond_signal : std_logic;
@@ -85,22 +85,22 @@ begin
          rst            => rst_geral,
          pc_wr_en_o     => pc_wr_en_signal,
          rom_read_en_o  => rom_read_en_signal,
-         ir_wr_en_o     => ir_wr_en_signal,
+        -- ir_wr_en_o     => ir_wr_en_signal,
          data_out       => data_signal,
-         instr          => instr_ir,
+         instr          => instr_rom,
          jump           => jump_signal,
          cond_or_incond => cond_or_incond_signal
       );
 
    -- Registrador de instrução
-   ir_inst: instruction_register
-      port map(
-         clk       => clk_geral,
-         rst       => rst_geral,
-         wr_en_IR  => ir_wr_en_signal,
-         instr_in  => instr_rom,
-         instr_out => instr_ir
-      );
+  -- ir_inst: instruction_register
+    --  port map(
+      --   clk       => clk_geral,
+       --  rst       => rst_geral,
+        -- wr_en_IR  => ir_wr_en_signal,
+        -- instr_in  => instr_rom,
+       --  --instr_out => instr_ir
+      --);
 
    -- MUX que escolhe o próximo endereço do PC
    mux_pc_inst: MUX_PC
