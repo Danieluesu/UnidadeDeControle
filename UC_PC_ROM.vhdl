@@ -1,4 +1,3 @@
-
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -10,7 +9,7 @@ entity UC_PC_ROM is
    );
 end entity;
 
-architecture UC_SM_PC_ROM of SM_PC_ROM is
+architecture UC_PC_ROM of UC_PC_ROM is
 
    component PC_ROM is
       port(  clk_PC_ROM     : in std_logic;
